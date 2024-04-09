@@ -307,10 +307,10 @@ transition: top 0.2s ease 0.3s; */
         font-size: 0.9rem;
     }
     .footer p{
-        margin: 2px;
+        margin: 1px;
         margin-top: 20px;
         margin-bottom: 10px;
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         text-align: center;
     
         font-weight: bold;
