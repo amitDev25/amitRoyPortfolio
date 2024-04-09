@@ -137,19 +137,25 @@ transition: top 0.2s ease 0.3s; */
         width: 90%;
         text-align: center;
     }
+    #homeAbout{
+        color: #b1b1b1;
+    }
 
     .typingText {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
 
     .profilePhoto {
         width: 70%;
     }
 
+    
+
     .socialMedia a img {
         height: 40px;
         width: 40px;
         margin-right: 5px;
+
     }
 
     .aboutMePage h1 {
@@ -158,6 +164,7 @@ transition: top 0.2s ease 0.3s; */
 
     .institution {
         width: 85%;
+        padding: 20px;
     }
 
     .instDetails {
@@ -165,13 +172,16 @@ transition: top 0.2s ease 0.3s; */
     }
 
     .instName a {
+        width: 100%;
         font-size: 1.1rem;
-        color: #b5b5b5;
+        color: #c0c0c0;
     }
 
     .council {
+        width: 100%;
+
         font-size: 0.9rem;
-        color: #909090;
+        color: #ababab;
     }
 
     .timeline {
@@ -183,7 +193,7 @@ transition: top 0.2s ease 0.3s; */
     }
 
     .aboutEdu {
-        font-size: 0.7rem;
+        font-size: 0.9rem;
         display: none;
     }
 
@@ -192,8 +202,8 @@ transition: top 0.2s ease 0.3s; */
     }
 
     .aboutEduPh p {
-        font-size: 0.7rem;
-        color: rgb(188 188 189);
+        font-size: 0.9rem;
+        color: #bcbcbd;
         font-weight: bold;
 
     }
@@ -214,17 +224,19 @@ transition: top 0.2s ease 0.3s; */
     .skillsPage p {
         font-size: 1.2rem;
         text-align: center;
+        padding-right: 20px;
+        padding-left: 20px;
         /* font-weight: bold; */
     }
     .skillCard{
         width: 40%;
-        height: 225px;
+        height: 210px;
         margin: 2px;
         padding: 8px;
     }
     .skillCard img {
         height: 50%;
-        width: 75%;
+        width: 85%;
     }
 
 
@@ -243,14 +255,14 @@ transition: top 0.2s ease 0.3s; */
     }
 
     .projects h3 {
-        color: #ababab;
+        color: #c0c0c0;
         font-size: 1.3rem;
     }
 
     .projects p {
         text-align: left;
         font-size: 0.8rem;
-        color: #868686;
+        color: #a5a5a5;
 
     }
 
@@ -267,6 +279,10 @@ transition: top 0.2s ease 0.3s; */
     }
     form{
         width: 80%;
+    }
+
+    .formItem{
+        font-size: 1rem;
     }
 
 
