@@ -142,7 +142,10 @@ transition: top 0.2s ease 0.3s; */
     }
 
     .typingText {
-        font-size: 1.75rem;
+        font-size: 1.8rem;
+        margin-right: 5px;
+        margin-left: 5px;
+        
     }
 
     .profilePhoto {
