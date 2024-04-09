@@ -147,9 +147,9 @@ transition: top 0.2s ease 0.3s; */
     }
 
     .socialMedia a img {
-        height: 40px;
-        width: 40px;
-        margin-right: 10px;
+        height: 30px;
+        width: 30px;
+        margin-right: 5px;
 
     }
 
