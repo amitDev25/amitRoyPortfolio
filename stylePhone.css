@@ -167,7 +167,11 @@ transition: top 0.2s ease 0.3s; */
 
     .institution {
         width: 85%;
+    }
+    .institution2{
         padding: 20px;
+
+
     }
 
     .instDetails {
@@ -235,7 +239,12 @@ transition: top 0.2s ease 0.3s; */
         width: 40%;
         height: 210px;
         margin: 2px;
+
+        
+    }
+    .skillCard2{
         padding: 8px;
+
     }
     .skillCard img {
         height: 50%;
@@ -252,9 +261,13 @@ transition: top 0.2s ease 0.3s; */
         text-align: center;
         /* font-weight: bold; */
     }
+    .projectsContainer{
+        /* gap: 0px; */
+    }
 
     .projects {
         width: 85%;
+        
     }
 
     .projects h3 {
