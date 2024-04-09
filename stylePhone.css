@@ -147,11 +147,9 @@ transition: top 0.2s ease 0.3s; */
     }
 
     .socialMedia a img {
-        height: 10px;
-        width: 10px;
-        margin-right: 2px;
-        margin: 0px;
-
+        height: 20px;
+        width: 20px;
+        margin-right: 3px;
     }
 
     .aboutMePage h1 {
