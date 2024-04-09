@@ -141,11 +141,10 @@ transition: top 0.2s ease 0.3s; */
         color: #b1b1b1;
     }
 
-    .typingText {
+    .homeTextContent .typingText {
         font-size: 1.75rem;
         margin-right: 2px;
         margin-left: 2px;
-        width: 100%;
         
     }
 
