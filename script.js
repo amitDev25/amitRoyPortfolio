@@ -63,7 +63,7 @@ toggleIcon.addEventListener('click', () => {
 const typedTextSpan = document.querySelector(".typed-text");
         const cursorSpan = document.querySelector(".cursor");
 
-        const textArray = ["Web Developer", "UI Designer", "Programmer"];
+        const textArray = ["Software Development Engineer", "Full Stack Developer", "Backend Engineer", "Problem Solver"];
         const typingDelay = 50;
         const erasingDelay = 50;
         const newTextDelay = 1000; // Delay between current and next text
@@ -114,58 +114,178 @@ const typedTextSpan = document.querySelector(".typed-text");
             let readLess = card.querySelector('.read-less');
             let moreContent = card.querySelector('.more-content');
             let lessContent = card.querySelector('.less-content');
+            
+            // Add smooth transition to the wrapper
+            card.style.transition = 'height 0.4s ease';
+            card.style.overflow = 'hidden';
 
             readMore.addEventListener('click', function (e) {
-                moreContent.style.display = 'block';
-                lessContent.style.display = 'none';
+                // Get starting height
+                let startHeight = card.offsetHeight;
                 
+                // Measure ending height
+                lessContent.style.display = 'none';
+                moreContent.style.display = 'block';
+                let endHeight = card.scrollHeight;
+                
+                // Revert to start state
+                lessContent.style.display = 'block';
+                moreContent.style.display = 'none';
+                
+                // Set explicit height
+                card.style.height = startHeight + 'px';
+                
+                // Trigger reflow
+                void card.offsetWidth;
+                
+                // Swap content and set new height to trigger animation
+                lessContent.style.display = 'none';
+                moreContent.style.display = 'block';
+                card.style.height = endHeight + 'px';
+                
+                // Fade in effect
+                moreContent.style.opacity = '0';
+                moreContent.style.transition = 'opacity 0.4s ease';
+                setTimeout(() => moreContent.style.opacity = '1', 10);
+                
+                // Cleanup after animation
+                setTimeout(() => {
+                    card.style.height = 'auto';
+                }, 400);
             });
 
             readLess.addEventListener('click', function (e) {
+                // Get starting height
+                let startHeight = card.offsetHeight;
+                
+                // Measure ending height
                 moreContent.style.display = 'none';
                 lessContent.style.display = 'block';
+                let endHeight = card.scrollHeight;
                 
+                // Revert to start state
+                moreContent.style.display = 'block';
+                lessContent.style.display = 'none';
+                
+                // Set explicit height
+                card.style.height = startHeight + 'px';
+                
+                // Trigger reflow
+                void card.offsetWidth;
+                
+                // Swap content and set new height to trigger animation
+                moreContent.style.display = 'none';
+                lessContent.style.display = 'block';
+                card.style.height = endHeight + 'px';
+                
+                // Fade in effect
+                lessContent.style.opacity = '0';
+                lessContent.style.transition = 'opacity 0.4s ease';
+                setTimeout(() => lessContent.style.opacity = '1', 10);
+                
+                // Cleanup after animation
+                setTimeout(() => {
+                    card.style.height = 'auto';
+                }, 400);
             });
         });
 
 
-        // Contact Us Form 
+        // Contact Us Form (Web3Forms)
+const form = document.getElementById('contactForm');
+const result = document.getElementById('resultMessage');
+
+if (form) {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
         
+        const formData = new FormData(form);
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
         
-const sendEmail = ()=> {
-    let name = document.getElementById("name").value
-    let mobile = document.getElementById("mobile").value
-    let email = document.getElementById("email").value
-    let message = document.getElementById("message").value
-    let mainbody = ` The Details of The Sender in Your Portfolio Website Are Given Below: <br/><br/><br/> Name : ${name} <br/> Mobile Number : ${mobile} <br/> Email Address : ${email} <br/> Message : ${message}`
-    let Usermainbody = ` Dear ${name}, <br/><br/><br/> Thank you for reaching out to me. I appreciate your interest and the opportunity to assist you. Your query is important to me, and I'm eager to provide you with the information or support you need. Feel free to share any specific questions or requirements you have, and I'll do my best to address them promptly. I will contact you as soon as possible. <br/><br/><br/> Best Regards, <br/> Amit Roy `
+        result.innerHTML = "Sending message...";
+        result.style.display = "block";
 
-    // console.log(mainbody)
-    Email.send({
-        SecureToken: "00ae0dd5-74c7-4582-9267-a03ae0a9e282",
-        To: 'arupjisumita2003@gmail.com',
-        From: "amitroy251203@gmail.com",
-        Subject: "Response From The Portfolio of Amit Roy",
-        Body: mainbody
-    }).then(
-        message => alert("Your Message Has Been Sent Successfully")
-    );
-
-    Email.send({
-        SecureToken: "00ae0dd5-74c7-4582-9267-a03ae0a9e282",
-        To: email,
-        From: "amitroy251203@gmail.com",
-        Subject: "Response From Amit Roy",
-        Body: Usermainbody
-    }).then(
-        message => alert("A quick response has been sent to your Mail id. If not found do check the spam section of your Email ")
-    );
-
-    
-
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: json
+        })
+        .then(async (response) => {
+            let json = await response.json();
+            if (response.status == 200) {
+                result.innerHTML = "Your Message Has Been Sent Successfully!";
+                form.reset(); // Clear the input fields immediately on success
+            } else {
+                console.log(response);
+                result.innerHTML = "Error: " + json.message;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            result.innerHTML = "Something went wrong! Please try again later.";
+        })
+        .finally(function() {
+            setTimeout(() => {
+                result.style.display = "none";
+                result.innerHTML = "";
+            }, 5000);
+        });
+    });
 }
 
 AOS.init();
+
+// Media Viewer Functions
+function openViewer(url, type) {
+    const modal = document.getElementById('mediaViewerModal');
+    const pdfViewer = document.getElementById('pdfViewer');
+    const imageViewer = document.getElementById('imageViewer');
+
+    if (type === 'pdf') {
+        pdfViewer.data = url;
+        document.getElementById('pdfFallback').href = url;
+        pdfViewer.style.display = 'block';
+        imageViewer.style.display = 'none';
+    } else if (type === 'image') {
+        imageViewer.src = url;
+        imageViewer.style.display = 'block';
+        pdfViewer.style.display = 'none';
+    }
+
+    modal.style.display = 'flex';
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+    document.body.style.overflow = 'hidden';
+}
+
+function closeViewer() {
+    const modal = document.getElementById('mediaViewerModal');
+    const pdfViewer = document.getElementById('pdfViewer');
+    const imageViewer = document.getElementById('imageViewer');
+
+    modal.classList.remove('show');
+    
+    setTimeout(() => {
+        pdfViewer.data = '';
+        imageViewer.src = '';
+        pdfViewer.style.display = 'none';
+        imageViewer.style.display = 'none';
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }, 300);
+}
+
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('mediaViewerModal');
+    if (event.target === modal) {
+        closeViewer();
+    }
+});
 
 
 
