@@ -216,7 +216,7 @@ if (form) {
         // Immediately show success and reset the form without waiting for a reply
         result.innerHTML = "Your Message Has Been Sent Successfully!";
         result.style.display = "block";
-        form.reset(); 
+        HTMLFormElement.prototype.reset.call(form); 
         
         // Hide the success message after 5 seconds
         setTimeout(() => {
