@@ -215,18 +215,28 @@ if (form) {
             body: json
         })
         .then(async (response) => {
-            let json = await response.json();
+            let text = await response.text();
+            let json;
+            try {
+                json = JSON.parse(text);
+            } catch (e) {
+                // If it's not JSON, it's likely a Cloudflare HTML challenge (often happens when testing locally)
+                console.error("Non-JSON response from server (likely Cloudflare block):", text);
+                result.innerHTML = "Security block triggered (often happens when testing locally). Please test on a live server.";
+                return;
+            }
+            
             if (response.status == 200) {
                 result.innerHTML = "Your Message Has Been Sent Successfully!";
                 form.reset(); // Clear the input fields immediately on success
             } else {
                 console.log(response);
-                result.innerHTML = "Error: " + json.message;
+                result.innerHTML = "Error: " + (json.message || "Unknown error");
             }
         })
         .catch(error => {
             console.log(error);
-            result.innerHTML = "Something went wrong! Please try again later.";
+            result.innerHTML = "Network error! Please check your connection.";
         })
         .finally(function() {
             setTimeout(() => {
