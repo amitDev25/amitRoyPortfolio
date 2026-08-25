@@ -191,61 +191,7 @@ const typedTextSpan = document.querySelector(".typed-text");
         });
 
 
-        // Contact Us Form (Web3Forms)
-const form = document.getElementById('contactForm');
-const result = document.getElementById('resultMessage');
-
-if (form) {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(form);
-        const object = Object.fromEntries(formData);
-        const json = JSON.stringify(object);
-        
-        result.innerHTML = "Sending message...";
-        result.style.display = "block";
-
-        fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: json
-        })
-        .then(async (response) => {
-            let text = await response.text();
-            let json;
-            try {
-                json = JSON.parse(text);
-            } catch (e) {
-                // If it's not JSON, it's likely a Cloudflare HTML challenge (often happens when testing locally)
-                console.error("Non-JSON response from server (likely Cloudflare block):", text);
-                result.innerHTML = "Security block triggered (often happens when testing locally). Please test on a live server.";
-                return;
-            }
-            
-            if (response.status == 200) {
-                result.innerHTML = "Your Message Has Been Sent Successfully!";
-                form.reset(); // Clear the input fields immediately on success
-            } else {
-                console.log(response);
-                result.innerHTML = "Error: " + (json.message || "Unknown error");
-            }
-        })
-        .catch(error => {
-            console.log(error);
-            result.innerHTML = "Network error! Please check your connection.";
-        })
-        .finally(function() {
-            setTimeout(() => {
-                result.style.display = "none";
-                result.innerHTML = "";
-            }, 5000);
-        });
-    });
-}
+// Contact Us Form now uses native HTML form submission to bypass Cloudflare AJAX blocks.
 
 AOS.init();
 

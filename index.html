@@ -892,10 +892,12 @@
 
 
 
-        <form id="contactForm" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
+        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
             <h3>Contact Me</h3>
-            <!-- Web3Forms Access Key placeholder -->
+            <!-- Web3Forms Access Key -->
             <input type="hidden" name="access_key" value="53358fc3-5a5b-4963-9e01-27d5c5bad087">
+            <!-- Redirect back to the portfolio after submission -->
+            <input type="hidden" name="redirect" value="https://amitroy.vercel.app/#contactMePg">
 
             <input type="text" id="name" name="name" class="formItem" placeholder="Enter Your Name" required>
             <input type="text" id="mobile" name="mobile" class="formItem" placeholder="Enter Your Mobile Number">
