@@ -907,8 +907,6 @@
                 <button type="submit" id="submit" class="formItem">Submit</button>
                 <input type="reset" id="reset" value="Reset" class="formItem">
             </div>
-
-            <p id="resultMessage" style="text-align: center; margin-top: 15px; color: #f89820; font-weight: bold;"></p>
         </form>
 
 
@@ -977,6 +975,16 @@
                 </div>
             </object>
             <img id="imageViewer" class="viewer-element" style="display:none;" alt="Project Media">
+        </div>
+    </div>
+
+    <!-- Success Message Modal -->
+    <div id="successModal" class="media-modal">
+        <div class="modal-content-wrapper success-content">
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <h2>Success!</h2>
+            <p>Your message has been sent successfully.</p>
+            <button class="formItem" id="closeSuccessBtn" onclick="closeSuccessModal()">OK</button>
         </div>
     </div>
 

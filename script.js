@@ -191,7 +191,6 @@ const typedTextSpan = document.querySelector(".typed-text");
         });
 // Contact Us Form (Fire-and-forget AJAX)
 const form = document.getElementById('contactForm');
-const result = document.getElementById('resultMessage');
 
 if (form) {
     form.addEventListener('submit', function(e) {
@@ -213,16 +212,17 @@ if (form) {
             // Ignore any network errors or Cloudflare blocks completely as requested
         });
         
-        // Immediately show success and reset the form without waiting for a reply
-        result.innerHTML = "Your Message Has Been Sent Successfully!";
-        result.style.display = "block";
+        // Immediately reset the form and show the success modal
         HTMLFormElement.prototype.reset.call(form); 
         
-        // Hide the success message after 5 seconds
-        setTimeout(() => {
-            result.style.display = "none";
-            result.innerHTML = "";
-        }, 5000);
+        const successModal = document.getElementById('successModal');
+        if (successModal) {
+            successModal.style.display = 'flex';
+            setTimeout(() => {
+                successModal.classList.add('show');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
     });
 }
 
@@ -275,7 +275,23 @@ window.addEventListener('click', function(event) {
     if (event.target === modal) {
         closeViewer();
     }
+    
+    const successModal = document.getElementById('successModal');
+    if (event.target === successModal) {
+        closeSuccessModal();
+    }
 });
+
+function closeSuccessModal() {
+    const successModal = document.getElementById('successModal');
+    if (successModal) {
+        successModal.classList.remove('show');
+        setTimeout(() => {
+            successModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+}
 
 
 
