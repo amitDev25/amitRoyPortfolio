@@ -189,41 +189,19 @@ const typedTextSpan = document.querySelector(".typed-text");
                 }, 400);
             });
         });
-// Contact Us Form (Robust AJAX with Native Fallback)
+// Contact Us Form (Fire-and-forget AJAX)
 const form = document.getElementById('contactForm');
 const result = document.getElementById('resultMessage');
 
-// Check for success parameter in URL (from native fallback redirect)
-window.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('success') === 'true') {
-        if (result) {
-            result.innerHTML = "Your Message Has Been Sent Successfully!";
-            result.style.display = "block";
-            setTimeout(() => {
-                result.style.display = "none";
-                result.innerHTML = "";
-            }, 5000);
-        }
-        if (form) form.reset();
-        
-        // Clean up the URL to prevent the message showing on refresh
-        const newUrl = window.location.pathname + window.location.hash;
-        window.history.replaceState({}, document.title, newUrl);
-    }
-});
-
 if (form) {
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Stop default to try AJAX first
+        e.preventDefault(); 
         
         const formData = new FormData(form);
         const object = Object.fromEntries(formData);
         const json = JSON.stringify(object);
         
-        result.innerHTML = "Sending message...";
-        result.style.display = "block";
-
+        // Fire and forget the fetch request
         fetch('https://api.web3forms.com/submit', {
             method: 'POST',
             headers: {
@@ -231,52 +209,20 @@ if (form) {
                 'Accept': 'application/json'
             },
             body: json
-        })
-        .then(async (response) => {
-            let text = await response.text();
-            let json;
-            try {
-                json = JSON.parse(text);
-            } catch (err) {
-                // Cloudflare HTML challenge or non-JSON response. 
-                // Fallback to native submission to let user pass the CAPTCHA.
-                fallbackToNative();
-                return;
-            }
-            
-            if (response.status == 200) {
-                result.innerHTML = "Your Message Has Been Sent Successfully!";
-                form.reset(); 
-                setTimeout(() => {
-                    result.style.display = "none";
-                    result.innerHTML = "";
-                }, 5000);
-            } else {
-                console.log(response);
-                result.innerHTML = "Error: " + (json.message || "Unknown error");
-            }
-        })
-        .catch(error => {
-            // Network error or fetch failure. Fallback to native submission
-            console.log(error);
-            fallbackToNative();
+        }).catch(() => {
+            // Ignore any network errors or Cloudflare blocks completely as requested
         });
-
-        function fallbackToNative() {
-            // Set dynamic redirect URL to include the success parameter
-            let redirectInput = form.querySelector('input[name="redirect"]');
-            if (!redirectInput) {
-                redirectInput = document.createElement('input');
-                redirectInput.type = 'hidden';
-                redirectInput.name = 'redirect';
-                form.appendChild(redirectInput);
-            }
-            // Use the current origin and path, append ?success=true and keep the hash anchor
-            redirectInput.value = window.location.origin + window.location.pathname + "?success=true#contactMePg";
-            
-            result.innerHTML = "Redirecting securely...";
-            form.submit(); // Submit the form natively
-        }
+        
+        // Immediately show success and reset the form without waiting for a reply
+        result.innerHTML = "Your Message Has Been Sent Successfully!";
+        result.style.display = "block";
+        form.reset(); 
+        
+        // Hide the success message after 5 seconds
+        setTimeout(() => {
+            result.style.display = "none";
+            result.innerHTML = "";
+        }, 5000);
     });
 }
 
