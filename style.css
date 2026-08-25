@@ -38,6 +38,7 @@ html {
     scroll-padding-top: var(--nav-height);
     font-size: clamp(16px, 1vw, 19px); /* Scales typography gracefully on big screens */
     background-color: var(--bg-main);
+    overflow-x: hidden;
 }
 
 body {
